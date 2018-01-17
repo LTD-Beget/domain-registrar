@@ -36,7 +36,26 @@ message FindOneRequest {
 }
 
 message FindOneResponse {
-    beget.domainRegistrar.v1.structures.Zone zone = 1;
+    oneof result {
+        // Информация о доменной зоне
+        beget.domainRegistrar.v1.structures.Zone zone = 1;
+
+        // Информация об ошибке
+        Error error = 2;
+    }
+
+    message Error {
+        // Тип ошибки
+        Type type = 1;
+
+        enum Type {
+            // Внутренняя ошибка сервера
+            INTERNAL_ERROR = 0;
+
+            // Доменная зона не найдена в соответствии с условиями
+            ZONE_NOT_FOUND = 1;
+        }
+    }
 }
 
 message FindAllRequest {
