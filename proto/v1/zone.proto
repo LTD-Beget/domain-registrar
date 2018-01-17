@@ -4,6 +4,7 @@ syntax = "proto3";
 package beget.domainRegistrar.v1.zone;
 
 import "google/api/annotations.proto";
+import "domain-registrar/proto/v1/structures.proto";
 
 service ZoneService {
     rpc findOne (FindOneRequest) returns (FindOneResponse) {
