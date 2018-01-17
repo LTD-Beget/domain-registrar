@@ -1,0 +1,40 @@
+
+syntax = "proto3";
+
+package beget.domainRegistrar.v1.structures;
+
+message Zone {
+    // Название доменной зоны
+    string name = 1;
+
+    // Цены на доменную зону в разных валютах
+    repeated ZonePrice zone_price = 2;
+
+    // Возможно ли регистрировать интернационализованное доменное имя в данной доменной зоне
+    bool is_idn = 3;
+
+    message ZonePrice {
+        // Валюта
+        Currency currency = 1;
+
+        // Стоимость регистрации и продления для обычных доменных имён
+        Cost cost = 2;
+
+        // Стоимость регистрации и продления для интернационализованных доменных имён
+        Cost cost_idn = 3;
+
+        enum Currency {
+            RUR = 0;
+            USD = 1;
+            EUR = 2;
+        }
+
+        message Cost {
+            // Стоимость регистрации доменного имени в данной доменной зоне
+            float price = 2;
+
+            // Стоимость продления доменного имени в данной доменной зоне
+            float price_renew = 3;
+        }
+    }
+}

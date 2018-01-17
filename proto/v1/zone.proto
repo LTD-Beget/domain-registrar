@@ -1,0 +1,58 @@
+
+syntax = "proto3";
+
+package beget.domainRegistrar.v1.zone;
+
+import "google/api/annotations.proto";
+
+service ZoneService {
+    rpc findOne (FindOneRequest) returns (FindOneResponse) {
+        option (google.api.http) = {
+            get: "/v1/domainRegistrar/zone"
+        };
+    }
+
+    rpc findAll (FindAllRequest) returns (FindAllResponse) {
+        option (google.api.http) = {
+            get: "/v1/domainRegistrar/zone/all"
+        };
+    }
+}
+
+message FindOneRequest {
+    SearchScope scope = 1;
+
+    message SearchScope {
+        oneof condition {
+            // Поиск по имени доменной зоны
+            ByZone by_zone = 1;
+        }
+
+        message ByZone {
+            string name = 1;
+        }
+    }
+}
+
+message FindOneResponse {
+    beget.domainRegistrar.v1.structures.Zone zone = 1;
+}
+
+message FindAllRequest {
+    SearchScope scope = 1;
+
+    message SearchScope {
+        oneof condition {
+            // Поиск по именам доменных зон
+            ByZone by_zone = 1;
+        }
+
+        message ByZone {
+            repeated string name = 1;
+        }
+    }
+}
+
+message FindAllResponse {
+    repeated beget.domainRegistrar.v1.structures.Zone zone = 1;
+}
