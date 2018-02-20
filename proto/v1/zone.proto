@@ -20,7 +20,7 @@ service ZoneService {
 }
 
 message FindOneRequest {
-    SearchScope scope = 1;
+    repeated SearchScope scope = 1;
 
     message SearchScope {
         oneof condition {
@@ -40,7 +40,7 @@ message FindOneResponse {
 }
 
 message FindAllRequest {
-    SearchScope scope = 1;
+    repeated SearchScope scope = 1;
 
     message SearchScope {
         oneof condition {
