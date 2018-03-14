@@ -8,13 +8,15 @@ import "domain-registrar/proto/v1/structures.proto";
 service ZoneService {
     rpc findOne (FindOneRequest) returns (FindOneResponse) {
         option (google.api.http) = {
-            get: "/v1/domainRegistrar/zone"
+            post: "/v1/domainRegistrar/zone",
+            body: "*"
         };
     }
 
     rpc findAll (FindAllRequest) returns (FindAllResponse) {
         option (google.api.http) = {
-            get: "/v1/domainRegistrar/zone/all"
+            post: "/v1/domainRegistrar/zone/all",
+            body: "*"
         };
     }
 }
