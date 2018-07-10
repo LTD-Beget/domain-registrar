@@ -84,6 +84,7 @@ message RegistrationOrder {
     // Статус заявки на регистрацию
     Status status = 6;
 
+    //Тип оплаты
     PayType pay_type = 7;
 
     enum Status {
@@ -96,6 +97,6 @@ message RegistrationOrder {
 enum PayType {
     // Списание с баланса пользователя
     BALANCE = 0;
-    // Бонусное продление
+    // Списание с бонусов
     BONUS = 1;
 }
