@@ -84,9 +84,18 @@ message RegistrationOrder {
     // Статус заявки на регистрацию
     Status status = 6;
 
+    PayType pay_type = 7;
+
     enum Status {
         PENDING = 0;
         CANCELED = 1;
         REGISTERED = 2;
     }
+}
+
+enum PayType {
+    // Списание с баланса пользователя
+    BALANCE = 0;
+    // Бонусное продление
+    BONUS = 1;
 }
