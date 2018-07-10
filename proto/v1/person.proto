@@ -1,0 +1,151 @@
+syntax = "proto3";
+
+package beget.domainRegistrar.v1.person;
+
+import "google/api/annotations.proto";
+import "domain-registrar/proto/v1/structures.proto";
+
+service PersonService {
+    rpc getRequiredGroups (GetRequiredGroupsRequest) returns (GetRequiredGroupsResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/person/groups" // todo скорее всего имеет смысл перенести в zone.proto
+            body: "*"
+        };
+    }
+    rpc getOne (GetOneRequest) returns (GetOneResponse) {
+        option (google.api.http) = {
+            get: "/v1/domainRegistrar/person/{id}"
+        };
+    }
+    rpc getList (GetListRequest) returns (GetListResponse) {
+        option (google.api.http) = {
+            get: "/v1/domainRegistrar/person"
+        };
+    }
+    rpc create (CreateRequest) returns (CreateResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/person"
+            body: "*"
+        };
+    }
+    rpc update (UpdateRequest) returns (UpdateResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/person/{id}"
+            body: "*"
+        };
+    }
+    rpc delete (DeleteRequest) returns (DeleteResponse) {
+        option (google.api.http) = {
+            delete: "/v1/domainRegistrar/person/{id}"
+        };
+    }
+}
+// getRequiredGroups
+message GetRequiredGroupsRequest {
+    PersonType type = 1;
+    string zone = 2;
+}
+message GetRequiredGroupsResponse {
+    repeated GroupSpecification group_specification = 1;
+}
+
+// getOne
+message GetOneRequest {
+    uint32 id = 1;
+}
+message GetOneResponse {
+    Person person = 1;
+}
+
+// getList
+message GetListRequest {
+}
+message GetListResponse {
+    repeated Person person = 1;
+}
+
+// create
+message CreateRequest {
+    PersonType type = 1;
+    repeated PersonData data = 3;
+}
+message CreateResponse {
+    oneof result {
+        Person person = 1;
+        PersonValidationError error = 2;
+    }
+}
+
+// update
+message UpdateRequest {
+    uint32 id = 1;
+    repeated PersonData data = 2;
+}
+message UpdateResponse {
+    oneof result {
+        Person person = 1;
+        PersonValidationError error = 2;
+    }
+}
+
+// delete
+message DeleteRequest {
+    uint32 id = 1;
+}
+message DeleteResponse {
+}
+/// structures
+
+
+message Person {
+    uint32 id = 1;
+    PersonType type = 2;
+    repeated PersonData data = 3;
+}
+
+message PersonData {
+    string group_name = 1; // @see type@GroupSpecification
+    repeated Field field = 2;
+
+    message Field {
+        string name = 1;
+        string value = 2;
+    }
+}
+
+message GroupSpecification {
+    string name = 1;
+    repeated FieldSpecification field_specification = 2;
+
+    message FieldSpecification {
+        string name = 1;
+        Format format = 2;
+        bool required = 3;
+        bool repeatable = 4; // field can be repeated
+        repeated beget.domainRegistrar.v1.structures.LocalizedText label = 5;
+        repeated beget.domainRegistrar.v1.structures.LocalizedText description = 6;
+
+        enum Format {
+            TEXT = 0;
+            EMAIL = 1;
+            PHONE = 2;
+            DATE = 3; // RFC 3339
+            COUNTRY = 4; // ISO 3166-1
+        }
+    }
+}
+
+enum PersonType {
+    PERSON = 0;
+    LEGAL = 1;
+}
+
+message PersonValidationError {
+    repeated FieldError field_error = 1;
+
+    message FieldError {
+        string group_name = 1; // @see name@GroupSpecification
+        string field_name = 2; // @see name@FieldSpecification@GroupSpecification
+        string message = 3;
+    }
+}
