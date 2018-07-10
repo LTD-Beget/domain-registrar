@@ -12,6 +12,48 @@ service OrderService {
             body: "*"
         };
     }
+
+    rpc renew (RenewRequest) returns (RenewResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/renew"
+            body: "*"
+        };
+    }
+}
+
+message RenewRequest {
+    // Полное доменное имя для продления
+    string fqdn = 1;
+
+    // Период продления в годах
+    uint32 period = 2;
+
+    // Тип оплаты
+    beget.domainRegistrar.v1.structures.PayType pay_type = 3;
+
+}
+
+message RenewResponse {
+    oneof response {
+        beget.domainRegistrar.v1.structures.RenewOrder renew_order = 1;
+
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        EXPIRED_DATE_NOT_MATCH = 1;
+        ALREADY_EXIST = 2;
+        WRONG_RENEW_PERIOD = 3;
+        INSUFFICIENT_FUNDS = 4;
+        PAY_TYPE_NOT_VALID = 5;
+    }
+
 }
 
 message RegisterRequest {

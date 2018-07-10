@@ -84,8 +84,6 @@ message RegistrationOrder {
     // Статус заявки на регистрацию
     Status status = 6;
 
-    PayType pay_type = 7;
-
     enum Status {
         PENDING = 0;
         CANCELED = 1;
@@ -93,9 +91,39 @@ message RegistrationOrder {
     }
 }
 
+message RenewOrder {
+    // Id заявки
+    uint64 id = 1;
+
+    // Дата создания заявки на продление
+    // DateTime::W3C
+    // @Link("http://php.net/manual/ru/class.datetime.php#datetime.constants.w3c")
+    string created_at = 2;
+
+    // Дата продления домена
+    // DateTime::W3C
+    // @Link("http://php.net/manual/ru/class.datetime.php#datetime.constants.w3c")
+    string renewed_at = 3;
+
+    // Доменное имя
+    string fqdn = 4;
+
+    // Период регистрации в годах
+    uint32 period = 5;
+
+    // Статус заявки на продление
+    Status status = 6;
+
+    enum Status {
+        PENDING = 0;
+        CANCELED = 1;
+        RENEW = 2;
+    }
+}
+
 enum PayType {
     // Списание с баланса пользователя
     BALANCE = 0;
-    // Бонусное продление
+    // Списание бонусного домена
     BONUS = 1;
 }
