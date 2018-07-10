@@ -5,7 +5,7 @@ package beget.domainRegistrar.v1.order;
 import "google/api/annotations.proto";
 import "domain-registrar/proto/v1/structures.proto";
 
-service RnewService {
+service RenewService {
 
     rpc renew (RenewRequest) returns (RenewResponse) {
         option (google.api.http) = {
