@@ -5,7 +5,7 @@ package beget.domainRegistrar.v1.order;
 import "google/api/annotations.proto";
 import "domain-registrar/proto/v1/structures.proto";
 
-service OrderService {
+service RegistrationService {
     rpc register (RegisterRequest) returns (RegisterResponse) {
         option (google.api.http) = {
             post: "/v1/domainRegistrar/register"
