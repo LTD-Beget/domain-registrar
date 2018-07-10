@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package beget.domainRegistrar.v1.order;
+
+import "google/api/annotations.proto";
+import "domain-registrar/proto/v1/structures.proto";
+
+service RnewService {
+
+    rpc renew (RenewRequest) returns (RenewResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/renew"
+            body: "*"
+        };
+    }
+}
+
+message RenewRequest {
+    // Полное доменное имя для продления
+    string fqdn = 1;
+
+    // Период продления в годах
+    uint32 period = 2;
+
+    // Тип оплаты
+    beget.domainRegistrar.v1.structures.PayType pay_type = 3;
+
+}
+
+message RenewResponse {
+    oneof response {
+        beget.domainRegistrar.v1.structures.RenewOrder renew_order = 1;
+
+        RenewError error = 2;
+    }
+
+    message RenewError {
+        string message = 1;
+        RenewErrorCode code = 2;
+    }
+
+    enum RenewErrorCode {
+        _ = 0;
+        ORDER_EXISTS = 1;
+        INVALID_DOMAIN_EXPIRE_DATE = 2;
+        INVALID_DOMAIN = 3;
+        INVALID_DOMAIN_ZONE = 4;
+        INVALID_PAY_TYPE = 5;
+        INVALID_PERIOD = 6;
+        INSUFFICIENT_FUNDS = 7;
+    }
+
+}

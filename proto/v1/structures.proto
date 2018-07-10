@@ -84,6 +84,8 @@ message RegistrationOrder {
     // Статус заявки на регистрацию
     Status status = 6;
 
+    PayType pay_type = 7;
+
     enum Status {
         PENDING = 0;
         CANCELED = 1;
@@ -114,10 +116,12 @@ message RenewOrder {
     // Статус заявки на продление
     Status status = 6;
 
+    PayType pay_pype = 7;
+
     enum Status {
         PENDING = 0;
         CANCELED = 1;
-        RENEW = 2;
+        RENEWED = 2;
     }
 }
 
