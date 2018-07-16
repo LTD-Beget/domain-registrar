@@ -23,7 +23,11 @@ message RenewRequest {
     uint32 period = 2;
 
     // Тип оплаты
-    beget.domainRegistrar.v1.structures.PayType pay_type = 3;
+    PayType pay_type = 3;
+
+    message PayType {
+        beget.domainRegistrar.v1.structures.PayType pay_type = 1;
+    }
 
 }
 
