@@ -26,7 +26,7 @@ message RenewRequest {
     PayType pay_type = 3;
 
     message PayType {
-        beget.domainRegistrar.v1.structures.PayType pay_type = 1;
+        beget.domainRegistrar.v1.structures.PayType value = 1;
     }
 
 }
