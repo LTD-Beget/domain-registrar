@@ -33,8 +33,14 @@ message RegisterRequest {
     // Cсылка на сущетсвующую персону,
     uint64 person_id = 6;
 
-    //Тип оплаты
-    beget.domainRegistrar.v1.structures.PayType pay_type = 7;
+    //Явное указание оплаты
+    Pay pay = 7;
+
+    //Сущность описывает оплату
+    message Pay {
+        //Типом оплаты
+        beget.domainRegistrar.v1.structures.PayType value = 1;
+    }
 
     // Сущность описывает ns записи при регистрации домена
     message NsServer {
