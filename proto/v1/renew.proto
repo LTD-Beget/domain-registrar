@@ -9,7 +9,7 @@ service RenewService {
 
     rpc renew (RenewRequest) returns (RenewResponse) {
         option (google.api.http) = {
-            post: "/v1/domainRegistrar/renew"
+            post: "/v1/renew/renew"
             body: "*"
         };
     }
@@ -51,7 +51,8 @@ message RenewResponse {
         INVALID_DOMAIN_ZONE = 4;
         INVALID_PAY_TYPE = 5;
         INVALID_PERIOD = 6;
-        INSUFFICIENT_FUNDS = 7;
+        INVALID_PAY_DATA = 7;
+        INSUFFICIENT_FUNDS = 8;
     }
 
 }
