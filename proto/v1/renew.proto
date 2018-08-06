@@ -46,12 +46,9 @@ message RenewResponse {
     enum RenewErrorCode {
         _ = 0;
         ORDER_EXISTS = 1;
-        INVALID_DOMAIN_EXPIRE_DATE = 2;
-        INVALID_DOMAIN = 3;
-        INVALID_DOMAIN_ZONE = 4;
-        INVALID_PAY_TYPE = 5;
-        INVALID_PERIOD = 6;
-        INSUFFICIENT_FUNDS = 7;
+        INVALID_DOMAIN = 2;
+        INVALID_PERIOD = 3;
+        INSUFFICIENT_FUNDS = 4;
     }
 
 }
