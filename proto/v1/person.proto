@@ -51,7 +51,7 @@ message GetRequiredGroupsResponse {
 
 // getOne
 message GetOneRequest {
-    uint32 id = 1;
+    string id = 1;
 }
 message GetOneResponse {
     Person person = 1;
@@ -78,7 +78,7 @@ message CreateResponse {
 
 // update
 message UpdateRequest {
-    uint32 id = 1;
+    string id = 1;
     repeated PersonData data = 2;
 }
 message UpdateResponse {
@@ -98,7 +98,7 @@ message DeleteResponse {
 
 
 message Person {
-    uint32 id = 1;
+    string id = 1;
     PersonType type = 2;
     repeated PersonData data = 3;
 }
