@@ -93,15 +93,6 @@ message RegistrationOrder {
     }
 }
 
-message LocalizedText {
-    string text = 1;
-    Locale locale = 2;
-
-    enum Locale {
-        EN = 0;
-        RU = 1;
-    }
-}
 message RenewOrder {
     // Id заявки
     uint64 id = 1;

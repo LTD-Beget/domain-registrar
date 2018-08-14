@@ -3,7 +3,6 @@ syntax = "proto3";
 package beget.domainRegistrar.v1.person;
 
 import "google/api/annotations.proto";
-import "domain-registrar/proto/v1/structures.proto";
 
 service PersonService {
     rpc getRequiredGroups (GetRequiredGroupsRequest) returns (GetRequiredGroupsResponse) {
@@ -122,8 +121,8 @@ message GroupSpecification {
         Format format = 2;
         bool required = 3;
         bool repeatable = 4; // field can be repeated
-        repeated beget.domainRegistrar.v1.structures.LocalizedText label = 5;
-        repeated beget.domainRegistrar.v1.structures.LocalizedText description = 6;
+        string label = 5;
+        string description = 6;
 
         enum Format {
             TEXT = 0;
