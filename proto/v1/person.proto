@@ -72,7 +72,7 @@ message GetListResponse {
 // create
 message CreateRequest {
     PersonType type = 1;
-    repeated PersonData data = 3;
+    repeated PersonData data = 2;
 }
 message CreateResponse {
     oneof result {
@@ -84,13 +84,10 @@ message CreateResponse {
 // validate
 message ValidateRequest {
     PersonType type = 1;
-    repeated PersonData data = 3;
+    repeated PersonData data = 2;
 }
 message ValidateResponse {
-    oneof result {
-        Person person = 1;
-        PersonValidationError error = 2;
-    }
+    repeated FieldError field_error = 1;
 }
 
 // update
@@ -159,13 +156,11 @@ enum PersonType {
     PERSON = 0;
     LEGAL = 1;
 }
-
+message FieldError {
+    string group_name = 1; // @see name@GroupSpecification
+    string field_name = 2; // @see name@FieldSpecification@GroupSpecification
+    string message = 3;
+}
 message PersonValidationError {
     repeated FieldError field_error = 1;
-
-    message FieldError {
-        string group_name = 1; // @see name@GroupSpecification
-        string field_name = 2; // @see name@FieldSpecification@GroupSpecification
-        string message = 3;
-    }
 }
