@@ -27,6 +27,12 @@ service PersonService {
             body: "*"
         };
     }
+    rpc validate (ValidateRequest) returns (ValidateResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/person/validate"
+            body: "*"
+        };
+    }
     rpc update (UpdateRequest) returns (UpdateResponse) {
         option (google.api.http) = {
             post: "/v1/domainRegistrar/person/{id}"
@@ -75,6 +81,18 @@ message CreateResponse {
     }
 }
 
+// validate
+message ValidateRequest {
+    PersonType type = 1;
+    repeated PersonData data = 3;
+}
+message ValidateResponse {
+    oneof result {
+        Person person = 1;
+        PersonValidationError error = 2;
+    }
+}
+
 // update
 message UpdateRequest {
     string id = 1;
@@ -93,13 +111,16 @@ message DeleteRequest {
 }
 message DeleteResponse {
 }
-/// structures
+
+
+/// structures ///
 
 
 message Person {
     string id = 1;
-    PersonType type = 2;
-    repeated PersonData data = 3;
+    string name = 2;
+    PersonType type = 3;
+    repeated PersonData data = 4;
 }
 
 message PersonData {
