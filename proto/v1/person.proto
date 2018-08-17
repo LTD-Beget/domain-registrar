@@ -104,7 +104,7 @@ message UpdateResponse {
 
 // delete
 message DeleteRequest {
-    uint32 id = 1;
+    string id = 1;
 }
 message DeleteResponse {
 }
@@ -136,14 +136,14 @@ message GroupSpecification {
 
     message FieldSpecification {
         string name = 1;
-        Format format = 2;
+        FieldType field_type = 2;
         bool required = 3;
         bool repeatable = 4; // field can be repeated
         string label = 5;
         string description = 6;
 
-        enum Format {
-            TEXT = 0;
+        enum FieldType {
+            STRING = 0;
             EMAIL = 1;
             PHONE = 2;
             DATE = 3; // RFC 3339
