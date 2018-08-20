@@ -48,7 +48,7 @@ service PersonService {
 // getRequiredGroups
 message GetRequiredGroupsRequest {
     PersonType type = 1;
-    string zone = 2;
+    string fqdn = 2;
 }
 message GetRequiredGroupsResponse {
     repeated GroupSpecification group_specification = 1;
