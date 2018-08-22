@@ -31,7 +31,7 @@ message RegisterRequest {
     Options options = 5;
 
     // Cсылка на ревизию персоны
-    string person_revision_id = 6;
+    string person_id = 6;
 
     //Явное указание оплаты
     PayType pay_type = 7;
