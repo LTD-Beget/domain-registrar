@@ -30,8 +30,8 @@ message RegisterRequest {
     // Дополнительные опции
     Options options = 5;
 
-    // Cсылка на сущетсвующую персону,
-    uint64 person_id = 6;
+    // Cсылка на ревизию персоны
+    string person_revision_id = 6;
 
     //Явное указание оплаты
     PayType pay_type = 7;
