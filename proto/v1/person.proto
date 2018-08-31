@@ -5,9 +5,9 @@ package beget.domainRegistrar.v1.person;
 import "google/api/annotations.proto";
 
 service PersonService {
-    rpc getRequiredGroups (GetRequiredGroupsRequest) returns (GetRequiredGroupsResponse) {
+    rpc getRequiredFields (GetRequiredFieldsRequest) returns (GetRequiredFieldsResponse) {
         option (google.api.http) = {
-            post: "/v1/domainRegistrar/person/groups" // todo скорее всего имеет смысл перенести в zone.proto
+            post: "/v1/domainRegistrar/person/fields"
             body: "*"
         };
     }
@@ -45,13 +45,13 @@ service PersonService {
         };
     }
 }
-// getRequiredGroups
-message GetRequiredGroupsRequest {
+// getRequiredFields
+message GetRequiredFieldsRequest {
     PersonType type = 1;
     string fqdn = 2;
 }
-message GetRequiredGroupsResponse {
-    repeated GroupSpecification group_specification = 1;
+message GetRequiredFieldsResponse {
+    repeated FieldSpecification field_specification = 1;
 }
 
 // getOne
@@ -72,7 +72,7 @@ message GetListResponse {
 // create
 message CreateRequest {
     PersonType type = 1;
-    repeated PersonData data = 2;
+    repeated Field field = 2;
 }
 message CreateResponse {
     oneof result {
@@ -84,7 +84,7 @@ message CreateResponse {
 // validate
 message ValidateRequest {
     PersonType type = 1;
-    repeated PersonData data = 2;
+    repeated Field field = 2;
 }
 message ValidateResponse {
     repeated FieldError field_error = 1;
@@ -93,7 +93,7 @@ message ValidateResponse {
 // update
 message UpdateRequest {
     string id = 1;
-    repeated PersonData data = 2;
+    repeated Field field = 2;
 }
 message UpdateResponse {
     oneof result {
@@ -117,38 +117,29 @@ message Person {
     string id = 1;
     string name = 2;
     PersonType type = 3;
-    repeated PersonData data = 4;
+    repeated Field field = 4;
 }
 
-message PersonData {
-    string group_name = 1; // @see type@GroupSpecification
-    repeated Field field = 2;
-
-    message Field {
-        string name = 1;
-        string value = 2;
-    }
-}
-
-message GroupSpecification {
+message Field {
     string name = 1;
-    repeated FieldSpecification field_specification = 2;
+    string value = 2;
+}
 
-    message FieldSpecification {
-        string name = 1;
-        FieldType field_type = 2;
-        bool required = 3;
-        bool repeatable = 4; // field can be repeated
-        string label = 5;
-        string description = 6;
+message FieldSpecification {
+    string name = 1;
+    FieldType field_type = 2;
+    bool required = 3;
+    bool repeatable = 4; // field can be repeated
+    string label = 5;
+    string description = 6;
+    uint32 weight = 7; // weight for sorting
 
-        enum FieldType {
-            STRING = 0;
-            EMAIL = 1;
-            PHONE = 2;
-            DATE = 3; // RFC 3339
-            COUNTRY = 4; // ISO 3166-1
-        }
+    enum FieldType {
+        STRING = 0;
+        EMAIL = 1;
+        PHONE = 2;
+        DATE = 3; // RFC 3339
+        COUNTRY = 4; // ISO 3166-1
     }
 }
 
@@ -156,11 +147,12 @@ enum PersonType {
     PERSON = 0;
     LEGAL = 1;
 }
+
 message FieldError {
-    string group_name = 1; // @see name@GroupSpecification
-    string field_name = 2; // @see name@FieldSpecification@GroupSpecification
-    string message = 3;
+    string field_name = 1; // @see name@FieldSpecification
+    string message = 2;
 }
+
 message PersonValidationError {
     repeated FieldError field_error = 1;
 }
