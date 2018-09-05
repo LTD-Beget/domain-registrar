@@ -133,6 +133,7 @@ message FieldSpecification {
     string label = 5;
     string description = 6;
     uint32 weight = 7; // weight for sorting
+    string group_title = 8; // group title for frontend
 
     enum FieldType {
         STRING = 0;
