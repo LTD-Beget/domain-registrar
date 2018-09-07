@@ -87,7 +87,10 @@ message ValidateRequest {
     repeated Field field = 2;
 }
 message ValidateResponse {
-    repeated FieldError field_error = 1;
+    oneof result {
+        bool success = 1;
+        PersonValidationError error = 2;
+    }
 }
 
 // update
