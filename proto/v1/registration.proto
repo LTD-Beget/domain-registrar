@@ -54,8 +54,17 @@ message RegisterRequest {
         bool ssl = 1;
         // Автопродление
         bool auto_renew = 2;
-        // ID сайта для привязки
-        uint64 site_id = 3;
+        // Условия ликовки сайта к созданному домену
+        Site site = 3;
+    }
+
+    message Site {
+        oneof condition {
+            // ID сайта для привязки
+            uint64 site_id = 1;
+            // Создать новый сайт для домена
+            bool new = 2;
+        }
     }
 }
 
