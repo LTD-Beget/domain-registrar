@@ -11,12 +11,12 @@ service PersonService {
             body: "*"
         };
     }
-    rpc getOne (GetOneRequest) returns (GetOneResponse) {
+    rpc findOne (FindOneRequest) returns (FindOneResponse) {
         option (google.api.http) = {
             get: "/v1/domainRegistrar/person/{id}"
         };
     }
-    rpc getList (GetListRequest) returns (GetListResponse) {
+    rpc findAll (FindAllRequest) returns (FindAllResponse) {
         option (google.api.http) = {
             get: "/v1/domainRegistrar/person"
         };
@@ -54,18 +54,18 @@ message GetRequiredFieldsResponse {
     repeated FieldSpecification field_specification = 1;
 }
 
-// getOne
-message GetOneRequest {
+// findOne
+message FindOneRequest {
     string id = 1;
 }
-message GetOneResponse {
+message FindOneResponse {
     Person person = 1;
 }
 
-// getList
-message GetListRequest {
+// findAll
+message FindAllRequest {
 }
-message GetListResponse {
+message FindAllResponse {
     repeated Person person = 1;
 }
 
