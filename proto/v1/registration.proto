@@ -88,5 +88,6 @@ message RegisterResponse {
         INVALID_SITE = 5;
         INSUFFICIENT_FUNDS = 6;
         INVALID_NS = 7;
+        ORDER_EXISTS = 8;
     }
 }
