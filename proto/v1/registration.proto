@@ -89,5 +89,7 @@ message RegisterResponse {
         INSUFFICIENT_FUNDS = 6;
         INVALID_NS = 7;
         ORDER_EXISTS = 8;
+        STOPLIST_DOMAIN = 9;
+        ANOTHER_DOMAIN_OWNER = 10;
     }
 }
