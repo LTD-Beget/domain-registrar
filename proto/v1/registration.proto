@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package beget.domainRegistrar.v1.order;
+package beget.domainRegistrar.v1.registration;
 
 import "google/api/annotations.proto";
 import "domain-registrar/proto/v1/structures.proto";
