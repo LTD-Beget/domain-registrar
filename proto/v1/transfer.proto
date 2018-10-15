@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package beget.domainRegistrar.v1.transfer;
+
+import "google/api/annotations.proto";
+import "domain-registrar/proto/v1/structures.proto";
+
+service TransferService {
+    rpc receive (ReceiveRequest) returns (ReceiveResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/transfer/domestic"
+            body: "*"
+        };
+    }
+}
+
+message ReceiveRequest {
+    // Полное доменное имя
+    string fqdn = 1;
+
+    // Период продления в годах
+    string auth_code = 2;
+
+    // Тип оплаты
+    PayType pay_type = 3;
+
+    //Сущность описывает оплату
+    message PayType {
+        //Тип оплаты
+        beget.domainRegistrar.v1.structures.PayType value = 1;
+    }
+}
+
+message ReceiveResponse {
+    oneof result {
+        beget.domainRegistrar.v1.structures.ReceiveOrder order = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        INVALID_AUTH_CODE= 1;
+        INVALID_DOMAIN = 2;
+        TRANSFER = 3;
+        INSUFFICIENT_FUNDS = 4;
+        STOPLIST_DOMAIN = 5;
+    }
+}
