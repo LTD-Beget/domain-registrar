@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+package beget.domainRegistrar.v1.transfer;
+
+import "google/api/annotations.proto";
+import "domain-registrar/proto/v1/structures.proto";
+
+service TransferService {
+    // Создание предварительной заявки(требующей подтверждения) на перенос домена
+    rpc createReceiveOrder (CreateReceiveOrderRequest) returns (CreateReceiveOrderResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/domain/receive"
+            body: "*"
+        };
+    }
+    // Передача данных персоны в предварительную заявку на перенос домена
+    rpc fillReceiveOrder (FillReceiveOrderRequest) returns (FillReceiveOrderResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/domain/receive/person"
+            body: "*"
+        };
+    }
+}
+
+message CreateReceiveOrderRequest {
+    // Полное доменное имя
+    string fqdn = 1;
+
+    // Код авторизации домена
+    string auth_code = 2;
+
+    // Тип оплаты
+    PayType pay_type = 3;
+
+    //Сущность описывает оплату
+    message PayType {
+        //Тип оплаты
+        beget.domainRegistrar.v1.structures.PayType value = 1;
+    }
+}
+
+message CreateReceiveOrderResponse {
+    oneof result {
+        // Предварительная заявка на перенос
+        beget.domainRegistrar.v1.structures.ReceiveOrder order = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        INVALID_AUTH_CODE= 1;
+        INVALID_DOMAIN = 2;
+        ALREADY_TRANSFER = 3;
+        INSUFFICIENT_FUNDS = 4;
+        STOPLIST_DOMAIN = 5;
+    }
+}
+
+message FillReceiveOrderRequest {
+    // ID заявки для которой передаются данные персоны.
+    uint64 order_id = 1;
+
+    // В качестве персоны может быть передано физическое или юридическое лицо
+    oneof type {
+        Person person = 2;
+        Legal legal   = 3;
+    }
+
+    // Сущность описывает физическое лицо
+    // Данные переданные в сущности не имеют строгого паттерна и проверяются вручную
+    message Person {
+        // Фамилия Имя Отчество
+        string full_name = 1;
+        // Дата рождения
+        string birth_date = 2;
+        // Место жительства
+        string location = 3;
+        // Данные паспорта. Серия, Номер, кем и когда выдан, код подразделения
+        string credential_data = 4;
+    }
+
+    // Сущность описывает юридическое лицо
+    // Данные переданные в сущности не имеют строгого паттерна и проверяются вручную
+    message Legal {
+        // Полное наименование организации
+        string full_company = 1;
+        // Юридический адрес
+        string location = 2;
+        // ИНН
+        string taxpayer_number = 3;
+    }
+}
+
+message FillReceiveOrderResponse {
+    oneof result {
+        Success success = 1;
+        Error error = 2;
+    }
+
+    message Success {
+        // Предварительная заявка на перенос
+        beget.domainRegistrar.v1.structures.ReceiveOrder receive_order = 1;
+        // В ответе так же возвращается фактическая заявка на перенос которая обрабатывается в рамках системы
+        beget.domainRegistrar.v1.structures.TransferOrder transfer_order = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        INVALID_PERSON = 1;
+        ALREADY_TRANSFER = 3;
+        INSUFFICIENT_FUNDS = 4;
+        STOPLIST_DOMAIN = 5;
+    }
+}
