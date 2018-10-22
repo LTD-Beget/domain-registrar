@@ -58,6 +58,7 @@ message CreateReceiveOrderResponse {
         ALREADY_TRANSFER = 3;
         INSUFFICIENT_FUNDS = 4;
         STOPLIST_DOMAIN = 5;
+        ANOTHER_DOMAIN_OWNER = 6;
     }
 }
 
