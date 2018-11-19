@@ -20,6 +20,14 @@ service TransferService {
             body: "*"
         };
     }
+
+    // Отмена заявки на перенос.
+    rpc cancelTransferOrder (CancelTransferOrderRequest) returns (CancelTransferOrderResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/domain/transfer/canceled"
+            body: "*"
+        };
+    }
 }
 
 message CreateReceiveOrderRequest {
@@ -122,5 +130,28 @@ message FillReceiveOrderResponse {
         INSUFFICIENT_FUNDS = 4;
         STOPLIST_DOMAIN = 5;
         ANOTHER_ORDER_OWNER = 6;
+    }
+}
+
+
+message CancelTransferOrderRequest {
+    // ID заявки переноса для отмены.
+    uint64 order_id = 1;
+}
+
+message CancelTransferOrderResponse {
+    oneof result {
+        beget.domainRegistrar.v1.structures.TransferOrder transfer_order = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        CANCELATION_FAILED = 1;
     }
 }
