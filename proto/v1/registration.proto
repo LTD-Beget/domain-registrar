@@ -91,5 +91,6 @@ message RegisterResponse {
         ORDER_EXISTS = 8;
         STOPLIST_DOMAIN = 9;
         ANOTHER_DOMAIN_OWNER = 10;
+        PREMIUM_DOMAIN = 11;
     }
 }
