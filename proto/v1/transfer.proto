@@ -135,8 +135,8 @@ message FillReceiveOrderResponse {
 
 
 message CancelTransferOrderRequest {
-    // ID заявки переноса для отмены.
-    uint64 order_id = 1;
+    // Доменное имя для которого делается отмена заявки на перенос.
+    string fqdn = 1;
 }
 
 message CancelTransferOrderResponse {
