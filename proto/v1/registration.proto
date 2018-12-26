@@ -92,5 +92,6 @@ message RegisterResponse {
         STOPLIST_DOMAIN = 9;
         ANOTHER_DOMAIN_OWNER = 10;
         PREMIUM_DOMAIN = 11;
+        RESERVED_DOMAIN = 12;
     }
 }
