@@ -186,10 +186,17 @@ message TransferOrder {
     }
 }
 
-
 enum PayType {
     // Списание с баланса пользователя
     BALANCE = 0;
     // Списание бонусов
     BONUS = 1;
+}
+
+message NS {
+    // fqdn
+    string hostname = 1;
+
+    // IP
+    string ip = 2;
 }
