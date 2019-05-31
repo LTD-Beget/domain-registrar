@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package beget.domainRegistrar.v1.ns;
+
+import "google/api/annotations.proto";
+import "domain-registrar/proto/v1/structures.proto";
+
+service NsService {
+    rpc updateNs (UpdateNsRequest) returns (UpdateNsResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/ns/{fqdn}"
+            body: "*"
+        };
+    }
+    rpc getNs (GetNsRequest) returns (GetNsResponse) {
+        option (google.api.http) = {
+            get: "/v1/domainRegistrar/ns/{fqdn}"
+            body: "*"
+        };
+    }
+}
+
+message GetNsRequest {
+    // Полное доменное имя
+    string fqdn = 1;
+}
+
+message GetNsResponse {
+    repeated beget.domainRegistrar.v1.structures.NS ns = 1;
+}
+
+message UpdateNsRequest {
+    // Полное доменное имя
+    string fqdn = 1;
+    // NS записи которые мы хотим установить
+    repeated beget.domainRegistrar.v1.structures.NS ns = 2;
+}
+
+message UpdateNsResponse {
+    oneof result {
+        Success success = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    message Success {
+        repeated beget.domainRegistrar.v1.structures.NS ns = 1;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        INVALID_NS = 1;
+        EXPIRED_NS = 2;
+        INVALID_NS_COUNT = 3;
+    }
+}
