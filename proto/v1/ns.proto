@@ -15,7 +15,6 @@ service NsService {
     rpc getNs (GetNsRequest) returns (GetNsResponse) {
         option (google.api.http) = {
             get: "/v1/domainRegistrar/ns/{fqdn}"
-            body: "*"
         };
     }
 }
