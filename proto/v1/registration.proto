@@ -14,7 +14,7 @@ service RegistrationService {
     }
     rpc countDomain (CountDomainRequest) returns (CountDomainResponse) {
         option (google.api.http) = {
-            post: "/v1/domainRegistrar/register/counter"
+            post: "/v1/domainRegistrar/register/score"
             body: "*"
         };
     }
