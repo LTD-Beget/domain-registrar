@@ -53,7 +53,8 @@ message UpdateNsResponse {
     enum ErrorCode {
         _ = 0;
         INVALID_NS = 1;
-        EXPIRED_NS = 2;
-        INVALID_NS_COUNT = 3;
+        NS_EXPIRED_CANNOT_BE_SET  = 2;
+        NS_EXPIRED_CANNOT_BE_EDIT = 3;
+        INVALID_NS_COUNT = 4;
     }
 }
