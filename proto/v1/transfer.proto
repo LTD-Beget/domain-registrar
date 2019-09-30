@@ -75,9 +75,11 @@ message FillReceiveOrderRequest {
     uint64 order_id = 1;
 
     // В качестве персоны может быть передано физическое или юридическое лицо
+    // или simplify=true, если нужно пропустить проверку персоны
     oneof type {
         Person person = 2;
         Legal legal   = 3;
+        bool simplify = 4;
     }
 
     // Сущность описывает физическое лицо
