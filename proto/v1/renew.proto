@@ -49,6 +49,7 @@ message RenewResponse {
         INVALID_DOMAIN = 2;
         INVALID_PERIOD = 3;
         INSUFFICIENT_FUNDS = 4;
+        STOPLIST_DOMAIN = 5;
     }
 
 }
