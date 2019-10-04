@@ -200,3 +200,29 @@ message NS {
     // IP
     string ip = 2;
 }
+
+message VerificationOrder {
+    // ID заявки
+    uint64 id = 1;
+
+    // Доменное имя
+    string fqdn = 2;
+
+    // Дата создания заявки
+    // DateTime::W3C
+    // @Link("http://php.net/manual/ru/class.datetime.php#datetime.constants.w3c")
+    string created_at = 3;
+
+    // Дата обработки завяки
+    // DateTime::W3C
+    // @Link("http://php.net/manual/ru/class.datetime.php#datetime.constants.w3c")
+    string sent_at = 4;
+
+    // Статус заявки на переотправку письма верификации
+    Status status = 5;
+
+    enum Status {
+        PENDING = 0;
+        SENT = 1;
+    }
+}

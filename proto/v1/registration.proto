@@ -18,6 +18,12 @@ service RegistrationService {
             body: "*"
         };
     }
+    rpc resendVerification (ResendVerificationRequest) returns (ResendVerificationResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/domain/verification"
+            body: "*"
+        };
+    }
 }
 
 message RegisterRequest {
@@ -110,4 +116,28 @@ message CountDomainRequest {
 
 message CountDomainResponse {
     uint32 count = 1;
+}
+
+message ResendVerificationRequest {
+    string fqdn = 1;
+}
+
+message ResendVerificationResponse {
+    oneof result {
+        beget.domainRegistrar.v1.structures.VerificationOrder order = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        ALREADY_SENDING = 1;
+        ALREADY_VERIFIED = 2;
+        OUT_OF_LIMIT = 3;
+        VERIFICATION_NOT_REQUIRED = 4;
+    }
 }
