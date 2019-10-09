@@ -99,6 +99,8 @@ message RegisterResponse {
         ANOTHER_DOMAIN_OWNER = 10;
         PREMIUM_DOMAIN = 11;
         RESERVED_DOMAIN = 12;
+        DOMAIN_CREATION = 13;
+        SITE_OUT_OF_LIMIT = 14;
     }
 }
 
