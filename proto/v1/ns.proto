@@ -56,5 +56,6 @@ message UpdateNsResponse {
         NS_EXPIRED_CANNOT_BE_SET  = 2;
         NS_EXPIRED_CANNOT_BE_EDIT = 3;
         INVALID_NS_COUNT = 4;
+        UPDATING_UNAVAILABLE_FOR_ZONE = 5;
     }
 }

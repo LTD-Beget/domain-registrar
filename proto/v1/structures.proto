@@ -27,6 +27,9 @@ message Zone {
     // Тип доменной зоны
     ZoneType type = 8;
 
+    // Возможность смены NS-записей
+    bool changing_ns_available = 9;
+
     enum ZoneType {
         // Общий домен верхнего уровня
         CCTLD = 0;
