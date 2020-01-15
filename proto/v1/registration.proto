@@ -107,6 +107,8 @@ message RegisterResponse {
         RESERVED_DOMAIN = 12;
         DOMAIN_CREATION = 13;
         SITE_OUT_OF_LIMIT = 14;
+        MIN_NS_COUNT = 15;
+        MAX_NS_COUNT = 16;
     }
 }
 
