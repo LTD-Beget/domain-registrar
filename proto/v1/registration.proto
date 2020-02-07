@@ -68,6 +68,13 @@ message RegisterRequest {
         bool auto_renew = 2;
         // Условия линковки сайта к созданному домену
         Site site = 3;
+        // Дополнительные параметры
+        repeated Parameters parameters = 4;
+
+        message Parameters {
+            string key   = 1;
+            string value = 2;
+        }
     }
 
     message Site {
