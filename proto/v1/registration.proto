@@ -24,6 +24,12 @@ service RegistrationService {
             body: "*"
         };
     }
+
+    rpc checkPremium (CheckPremiumRequest) returns (CheckPremiumResponse) {
+        option (google.api.http) = {
+            get: "/v1/domainRegistrar/register/{fqdn}/premium"
+        };
+    }
 }
 
 message RegisterRequest {
@@ -148,5 +154,36 @@ message ResendVerificationResponse {
         ALREADY_VERIFIED = 2;
         OUT_OF_LIMIT = 3;
         VERIFICATION_NOT_REQUIRED = 4;
+    }
+}
+
+message CheckPremiumRequest {
+    // Полное доменное имя которое проверяется на премиумность
+    string fqdn = 1;
+}
+
+message CheckPremiumResponse {
+    oneof result {
+        Success success = 1;
+        Error error = 2;
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        RESPONSE_FAILED = 1;
+    }
+
+    message Success {
+        // Является ли домен премиумом
+        bool premium = 1;
+        // Цены
+        uint32 register_price = 2;
+
+        uint32 renew_price = 3;
     }
 }
