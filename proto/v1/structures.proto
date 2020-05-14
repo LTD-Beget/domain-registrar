@@ -59,6 +59,8 @@ message Zone {
             float price_renew = 3;
         }
     }
+
+    bool transfer_available = 9;
 }
 
 message RegistrationOrder {
