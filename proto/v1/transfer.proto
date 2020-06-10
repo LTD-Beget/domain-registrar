@@ -67,6 +67,7 @@ message CreateReceiveOrderResponse {
         INSUFFICIENT_FUNDS = 4;
         STOPLIST_DOMAIN = 5;
         ANOTHER_DOMAIN_OWNER = 6;
+        PREMIUM_DOMAIN = 7;
     }
 }
 
@@ -80,6 +81,8 @@ message FillReceiveOrderRequest {
         Person person = 2;
         Legal legal   = 3;
         bool simplify = 4;
+        InternationalPerson international_person = 5;
+        InternationalLegal international_legal = 6;
     }
 
     // Сущность описывает физическое лицо
@@ -104,6 +107,66 @@ message FillReceiveOrderRequest {
         string location = 2;
         // ИНН
         string taxpayer_number = 3;
+    }
+
+    // Сущность описывает физическое лицо для переноса международных доменов
+    message InternationalPerson {
+        // Страна
+        string country = 1;
+        // Фамилия Имя Отчество
+        string full_name = 2;
+        // Фамилия Имя Отчество на латинском
+        string international_full_name = 3;
+        // Почтовый индекс
+        string zipcode = 4;
+        // Область/штат/край
+        string state = 5;
+        // Область/штат/край на латинском
+        string international_state = 6;
+        // Город
+        string city = 7;
+        // Город на латинском
+        string international_city = 8;
+        // Адрес
+        string address = 9;
+        // Адрес на латинском
+        string international_address = 10;
+        // Основной email
+        string email = 11;
+        // Основной телефон
+        string phone = 12;
+    }
+
+    // Сущность описывает юридическое лицо для переноса международных доменов
+    message InternationalLegal{
+        // Страна
+        string country = 1;
+        // Фамилия Имя Отчество
+        string full_name = 2;
+        // Фамилия Имя Отчество на латинском
+        string international_full_name = 3;
+        // Почтовый индекс
+        string zipcode = 4;
+        // Область/штат/край
+        string state = 5;
+        // Область/штат/край на латинском
+        string international_state = 6;
+        // Город
+        string city = 7;
+        // Город на латинском
+        string international_city = 8;
+        // Адрес
+        string address = 9;
+        // Адрес на латинском
+        string international_address = 10;
+        // Основной email
+        string email = 11;
+        // Основной телефон
+        string phone = 12;
+        // Компания
+        string company = 13;
+        // Компания на латинском
+        string international_company = 14;
     }
 }
 
@@ -132,6 +195,9 @@ message FillReceiveOrderResponse {
         INSUFFICIENT_FUNDS = 4;
         STOPLIST_DOMAIN = 5;
         ANOTHER_ORDER_OWNER = 6;
+        // Актуально для переноса международных доменов
+        INVALID_AUTH_CODE= 7;
+        TRANSFER_PROHIBITED = 8;
     }
 }
 
