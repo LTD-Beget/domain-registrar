@@ -81,6 +81,9 @@ message RegisterRequest {
             string key   = 1;
             string value = 2;
         }
+
+        // на какой ip направить домен (установка А записи)
+        string ip = 5;
     }
 
     message Site {
