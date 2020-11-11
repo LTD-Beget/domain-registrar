@@ -81,6 +81,9 @@ message RegisterRequest {
             string key   = 1;
             string value = 2;
         }
+
+        // на какой ip направить домен (установка А записи)
+        string a_record = 5;
     }
 
     message Site {
@@ -122,6 +125,7 @@ message RegisterResponse {
         SITE_OUT_OF_LIMIT = 14;
         MIN_NS_COUNT = 15;
         MAX_NS_COUNT = 16;
+        INVALID_A_RECORD = 17;
     }
 }
 
