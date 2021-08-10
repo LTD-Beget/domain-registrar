@@ -13,7 +13,38 @@ service RenewService {
             body: "*"
         };
     }
+
+    rpc getAvailablePeriod (getAvailablePeriodRequest) returns (getAvailablePeriodResponse) {
+        option (google.api.http) = {
+            get: "/v1/domainRegistrar/renew/{fqdn}/available-period"
+        };
+    }
 }
+
+message getAvailablePeriodRequest {
+    string fqdn = 1;
+}
+
+message getAvailablePeriodResponse {
+    oneof response {
+        Success success = 1;
+        Error error = 2;
+    }
+
+    message Success {
+        uint32 period = 1; // может быть ноль
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        INTERNAL_ERROR = 0;
+    }
+}
+
 
 message RenewRequest {
     // Полное доменное имя для продления
