@@ -28,6 +28,14 @@ service TransferService {
             body: "*"
         };
     }
+
+    // можно ли перенести домен в бегет
+    rpc check (CheckRequest) returns (CheckResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/domain/transfer/check"
+            body: "*"
+        };
+    }
 }
 
 message CreateReceiveOrderRequest {
@@ -221,5 +229,37 @@ message CancelTransferOrderResponse {
     enum ErrorCode {
         _ = 0;
         CANCELATION_FAILED = 1;
+    }
+}
+
+message CheckRequest {
+    string fqdn = 1;
+}
+
+message CheckResponse {
+    oneof result {
+        Success success = 1;
+        Error error = 2;
+    }
+
+    message Success {}
+
+    message Error {
+        ErrorCode code = 1;
+        string message = 2;
+    }
+    enum ErrorCode {
+        _ = 0;
+        INTERNAL_ERROR = 1;
+        DOMAIN_IN_STOPLIST = 2;
+        // домен уже есть у кого-то на аккаунте
+        ALIEN_DOMAIN = 3;
+        ORDER_EXISTS = 4;
+        INVALID_DOMAIN = 5;
+        ALREADY_IN_BEGET = 6;
+        NOT_AVAILABLE_ZONE = 7;
+        NOT_REGISTERED_DOMAIN = 8;
+        RKN_BLOCKED_DOMAIN = 9;
+        BLOCKED_DOMAIN = 10;
     }
 }
