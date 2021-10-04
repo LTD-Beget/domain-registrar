@@ -52,6 +52,7 @@ message RenewResponse {
         STOPLIST_DOMAIN = 5;
         INVALID_INTERVAL = 6;
         DOMAIN_RENEWED = 7;
+        RENEW_PROHIBITED = 8;
     }
 
 }
