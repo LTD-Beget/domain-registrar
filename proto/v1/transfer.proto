@@ -76,6 +76,8 @@ message CreateReceiveOrderResponse {
         STOPLIST_DOMAIN = 5;
         ANOTHER_DOMAIN_OWNER = 6;
         PREMIUM_DOMAIN = 7;
+        // срок делегирования домена истекает через несколько дней (для RU/РФ - 7 дней и менее)
+        EXPIRES_IN_FEW_DAYS = 8;
     }
 }
 
@@ -206,6 +208,8 @@ message FillReceiveOrderResponse {
         // Актуально для переноса международных доменов
         INVALID_AUTH_CODE= 7;
         TRANSFER_PROHIBITED = 8;
+        // срок делегирования домена истекает через несколько дней (для RU/РФ - 7 дней и менее)
+        EXPIRES_IN_FEW_DAYS = 9;
     }
 }
 
@@ -261,5 +265,7 @@ message CheckResponse {
         NOT_REGISTERED_DOMAIN = 8;
         RKN_BLOCKED_DOMAIN = 9;
         BLOCKED_DOMAIN = 10;
+        // срок делегирования домена истекает через несколько дней (для RU/РФ - 7 дней и менее)
+        EXPIRES_IN_FEW_DAYS = 11;
     }
 }
