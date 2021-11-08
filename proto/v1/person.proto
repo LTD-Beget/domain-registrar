@@ -156,6 +156,7 @@ enum PersonType {
 message FieldError {
     string field_name = 1; // @see name@FieldSpecification
     string message = 2;
+    bool hidden = 3;
 }
 
 message PersonValidationError {
