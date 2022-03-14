@@ -95,6 +95,9 @@ message FillReceiveOrderRequest {
         InternationalLegal international_legal = 6;
     }
 
+    // Установить свойство private_person для домена
+    bool private_person = 7;
+
     // Сущность описывает физическое лицо
     // Данные переданные в сущности не имеют строгого паттерна и проверяются вручную
     message Person {
