@@ -268,7 +268,5 @@ message CheckResponse {
         NOT_REGISTERED_DOMAIN = 8;
         RKN_BLOCKED_DOMAIN = 9;
         BLOCKED_DOMAIN = 10;
-        // срок делегирования домена истекает через несколько дней (для RU/РФ - 7 дней и менее)
-        EXPIRES_IN_FEW_DAYS = 11;
     }
 }
