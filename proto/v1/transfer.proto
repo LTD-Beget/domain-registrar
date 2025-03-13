@@ -249,7 +249,25 @@ message CheckResponse {
         Error error = 2;
     }
 
-    message Success {}
+    message Success {
+        oneof payment {
+            BalancePayment balance = 1;
+            BonusPayment bonus = 2;
+            FreePayment free = 3;
+        }
+
+        message BalancePayment {
+            float price = 1;
+        }
+
+        message BonusPayment {
+            uint64 bonusCount = 1;
+        }
+
+        message FreePayment {
+            string reason = 1;
+        }
+    }
 
     message Error {
         ErrorCode code = 1;
