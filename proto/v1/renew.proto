@@ -14,10 +14,9 @@ service RenewService {
         };
     }
 
-    rpc calculatePrice (CalculatePriceRequest) returns (CalculatePriceResponse) {
+    rpc getPrice (GetPriceRequest) returns (GetPriceResponse) {
         option (google.api.http) = {
-            post: "/v1/domainRegistrar/renew/calculatePrice"
-            body: "*"
+            get: "/v1/domainRegistrar/renew/{fqdn}/price/{period}"
         };
     }
 }
@@ -64,7 +63,7 @@ message RenewResponse {
 
 }
 
-message CalculatePriceRequest {
+message GetPriceRequest {
     // Полное доменное имя
     string fqdn = 1;
 
@@ -72,7 +71,7 @@ message CalculatePriceRequest {
     uint32 period = 2;
 }
 
-message CalculatePriceResponse {
+message GetPriceResponse {
     oneof response {
         float price = 1;
         Error error = 2;
