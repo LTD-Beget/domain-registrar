@@ -13,6 +13,12 @@ service RenewService {
             body: "*"
         };
     }
+
+    rpc getPrice (GetPriceRequest) returns (GetPriceResponse) {
+        option (google.api.http) = {
+            get: "/v1/domainRegistrar/renew/{fqdn}/price/{period}"
+        };
+    }
 }
 
 message RenewRequest {
@@ -55,4 +61,25 @@ message RenewResponse {
         RENEW_PROHIBITED = 8;
     }
 
+}
+
+message GetPriceRequest {
+    // Полное доменное имя
+    string fqdn = 1;
+
+    // Период продления в годах
+    uint32 period = 2;
+}
+
+message GetPriceResponse {
+    oneof response {
+        float price = 1;
+        Error error = 2;
+    }
+
+    enum Error {
+        _ = 0;
+        INVALID_DOMAIN = 1;
+        INVALID_PERIOD = 2;
+    }
 }
