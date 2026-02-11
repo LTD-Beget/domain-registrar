@@ -121,6 +121,12 @@ message Person {
     string name = 2;
     PersonType type = 3;
     repeated Field field = 4;
+    RevisionType revision_type = 5;
+
+    enum RevisionType {
+        BASE = 0;
+        RUSSIAN = 1;
+    }
 }
 
 message Field {
