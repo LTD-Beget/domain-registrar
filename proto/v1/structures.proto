@@ -93,6 +93,9 @@ message RegistrationOrder {
         CANCELED = 1;
         REGISTERED = 2;
     }
+
+    // Токен для подтверждения операции через ЕСИА
+    string token = 8;
 }
 
 message RenewOrder {
