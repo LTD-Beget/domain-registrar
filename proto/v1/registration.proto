@@ -30,6 +30,13 @@ service RegistrationService {
             get: "/v1/domainRegistrar/register/{fqdn}/premium"
         };
     }
+
+    rpc cancel (CancelRequest) returns (CancelResponse) {
+        option (google.api.http) = {
+            post: "/v1/domainRegistrar/register/{id}/cancel"
+            body: "*"
+        };
+    }
 }
 
 message RegisterRequest {
@@ -189,5 +196,30 @@ message CheckPremiumResponse {
         uint32 register_price = 2;
 
         uint32 renew_price = 3;
+    }
+}
+
+message CancelRequest {
+    // ID заказа на регистрацию домена
+    uint64 id = 1;
+}
+
+message CancelResponse {
+    oneof result {
+        Success success = 1;
+        Error error = 2;
+    }
+
+    message Success {
+    }
+
+    message Error {
+        string message = 1;
+        ErrorCode code = 2;
+    }
+
+    enum ErrorCode {
+        _ = 0;
+        ORDER_PROCESSED = 3;
     }
 }
