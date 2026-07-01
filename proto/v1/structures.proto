@@ -128,6 +128,9 @@ message RenewOrder {
         CANCELED = 1;
         RENEWED = 2;
     }
+
+    // Токен для подтверждения операции через ЕСИА
+    string token = 8;
 }
 
 message ReceiveOrder {
