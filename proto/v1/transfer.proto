@@ -60,6 +60,8 @@ message CreateReceiveOrderResponse {
         // Предварительная заявка на перенос
         beget.domainRegistrar.v1.structures.ReceiveOrder order = 1;
         Error error = 2;
+        // Возвращается в случаях когда создается заявка без предварительного заполнения данными администратора
+        beget.domainRegistrar.v1.structures.TransferOrder transfer_order = 3;
     }
 
     message Error {
